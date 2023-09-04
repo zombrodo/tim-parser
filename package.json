@@ -1,0 +1,11 @@
+{
+  "name": "@zombrodo/tim-parser",
+  "version": "0.1.0",
+  "main": "index.js",
+  "repository": "git@github.com:zombrodo/tim-parser.git",
+  "author": {
+    "name": "Jack Robinson",
+    "url": "https://github.com/zombrodo"
+  },
+  "license": "MIT"
+}

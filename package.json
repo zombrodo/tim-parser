@@ -1,5 +1,6 @@
 {
   "name": "@zombrodo/tim-parser",
+  "description": "A parser for PSX TIM files",
   "version": "0.1.0",
   "main": "index.js",
   "repository": "git@github.com:zombrodo/tim-parser.git",
@@ -7,5 +8,27 @@
     "name": "Jack Robinson",
     "url": "https://github.com/zombrodo"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "prebuild": "rimraf dist/",
+    "build": "tsc -p tsconfig.build.json",
+    "test": "rimraf dist/ && ava"
+  },
+  "devDependencies": {
+    "@ava/typescript": "^4.1.0",
+    "ava": "^5.3.1",
+    "rimraf": "^5.0.1",
+    "typescript": "^5.2.2"
+  },
+  "ava": {
+    "files": [
+      "src/**/*.test.*"
+    ],
+    "typescript": {
+      "compile": "tsc",
+      "rewritePaths": {
+        "src/": "dist/"
+      }
+    }
+  }
 }

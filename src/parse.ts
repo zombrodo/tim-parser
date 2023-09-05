@@ -160,16 +160,18 @@ export function parsePixelInfo(
   while (reader.position() < endPosition) {
     switch (pixelMode) {
       case PixelMode.CLUT4:
-        const four = reader.readHalf();
+        // The reader will blow up if we've ended on a nibble, but deferring
+        // that until I have an adequate test image for it.
+        const four = reader.readByte();
         data.push(retrieveBits(four, 0, 4));
         data.push(retrieveBits(four, 4, 4));
-        data.push(retrieveBits(four, 8, 4));
-        data.push(retrieveBits(four, 12, 4));
         break;
       case PixelMode.CLUT8:
-        const eight = reader.readWord();
-        data.push(retrieveBits(eight, 0, 8));
-        data.push(retrieveBits(eight, 8, 8));
+        // The docs indicate that the 8-bit CLUT operates on words, but in
+        // reality, you can actually end up on a half-word (as per our test)
+        // so, this'll end up with more iterations, but handle those half-word
+        // cases.
+        data.push(reader.readHalf());
         break;
       case PixelMode.Direct15:
         const fifteen = reader.readWord();

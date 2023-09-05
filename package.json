@@ -32,7 +32,8 @@
   },
   "ava": {
     "files": [
-      "src/**/*.test.*"
+      "src/**/*.test.*",
+      "!src/testData.test.ts"
     ],
     "typescript": {
       "compile": "tsc",

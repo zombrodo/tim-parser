@@ -1,8 +1,8 @@
 {
   "include": ["src/**/*"],
   "compilerOptions": {
-    "target": "es2022",
-    "module": "CommonJS",
+    "target": "es2015",
+    "module": "commonjs",
     "esModuleInterop": true,
     "declaration": true,
     "outDir": "dist",

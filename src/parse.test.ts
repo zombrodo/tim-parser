@@ -46,7 +46,7 @@ function convertFromHexString(input: string): ArrayBuffer {
     .match(/.{1,2}/g);
 
   if (!bytes) {
-    return new Uint8Array().buffer;
+    return new Uint8Array(0).buffer;
   }
 
   const data = bytes.map(mapFn);

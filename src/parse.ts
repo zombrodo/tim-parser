@@ -171,7 +171,9 @@ export function parsePixelInfo(
         // reality, you can actually end up on a half-word (as per our test)
         // so, this'll end up with more iterations, but handle those half-word
         // cases.
-        data.push(reader.readHalf());
+        const eight = reader.readHalf();
+        data.push(retrieveBits(eight, 0, 8));
+        data.push(retrieveBits(eight, 8, 8));
         break;
       case PixelMode.Direct15:
         const fifteen = reader.readWord();

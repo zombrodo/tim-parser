@@ -32,10 +32,8 @@ export function retrieveBits(input: number, index: number, bits: number) {
  * @returns {FormatInfo} format information, including the id and version
  */
 export function parseFormatInfo(reader: ByteReader): FormatInfo {
-  const data = reader.readWord();
-
   // Bits 0-7 are our ID value. For TIM images, it must be 0x10
-  const id = retrieveBits(data, 0, 8);
+  const id = reader.readByte();
   if (id !== 0x10) {
     throw new Error(
       `parsed ID does not match TIM spec. Expected 0x10, got ${id}`
@@ -43,10 +41,10 @@ export function parseFormatInfo(reader: ByteReader): FormatInfo {
   }
 
   // Bits 8-15 are the version. This will be 0x00 on the PSX
-  const version = retrieveBits(data, 8, 8);
+  const version = reader.readByte();
 
   // Bits 16-32 are Reserved. There shouldn't be anything in there.
-  const reservedSpace = retrieveBits(data, 16, 16);
+  const reservedSpace = reader.readHalf();
 
   return {
     id,
@@ -191,9 +189,9 @@ export function parsePixelInfo(
 
         break;
       case PixelMode.Direct24:
-        const x = reader.readWord();
-        const y = reader.readWord();
-        const z = reader.readWord();
+        const x = reader.readHalf();
+        const y = reader.readHalf();
+        const z = reader.readHalf();
 
         data.push({
           r: retrieveBits(x, 0, 8),
